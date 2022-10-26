@@ -1,53 +1,59 @@
-@morse_code ={
-    "._" => "A",
-    "_..." => "B",
-    "_._." => "C",
-    "_.." => "D",
-    "."	=> "E",
-    ".._."=>"F",
-    "__."=> "G",
-    "...."=>"H",
-    ".."=>"I",
-    ".___"=>"J",
-    "_._"=>"K",
-    "._.."=>"L",
-    "__"=>"M",
-    "_." => "N",
-    "___"=>"O",
-    ".__."=>"P",
-    "__._"=>"Q",
-    "._." => "R",
-    "..." => "S",
-    "_" => "T",
-    ".._" => "U",
-    "..._" => "V",
-    ".__" => "W",
-    "_.._" => "X",
-    "_.__" => "Y",
-    "__.." => "Z"
-  }
+MORSE_CODE ={
+  '.-' => 'A',
+  '-...' => 'B',
+  '-.-.' => 'C',
+  '-..' => 'D',
+  '.' => 'E',
+  '..-.' => 'F',
+  '--.' => 'G',
+  '....' => 'H',
+  '..' => 'I',
+  '.---' => 'J',
+  '-.-' => 'K',
+  '.-..' => 'L',
+  '--' => 'M',
+  '-.' => 'N',
+  '---' => 'O',
+  '.--.' => 'P',
+  '--.-' => 'Q',
+  '.-.' => 'R',
+  '...' => 'S',
+  '-' => 'T',
+  '..-' => 'U',
+  '...-' => 'V',
+  '.--' => 'W',
+  '-..-' => 'X',
+  '-.--' => 'Y',
+  '--..' => 'Z',
+}
 
   #Create a method to decode a Morse code character, takes a string parameter, and return the corresponding character in uppercase (e.g. decode_char(".-") returns "A").
- 
+
   def decode_char(char)
-    @morse_code.each do |key, value|
-      if key === char 
-        puts value
-      end
-    end
+    MORSE_CODE[char]
   end
-  decode_char("__..")
+  puts decode_char('.-') #=> A
+
+
+  
 
  #Create a method to decode an entire word in Morse code, takes a string parameter, and return the string representation. Every character in a word will be separated by a single space (e.g. decode_word("-- -.--") returns "MY"). 
 
-def decode_word(word)
-  morse_split=word.split
-  print morse_split
-  morse_split.each do |n|
-    decode_char(n)
-  end
+ def decode_word(word)
+  split_word = ""
+  word.split.each { |n| split_word += decode_char(n) }
+  split_word
+end
+puts decode_word("-- -.--") #=> MY
+
+#Create a method to decode the entire message in Morse code, takes a string parameter, and return the string representation. Every word will be separated by 3 spaces (e.g.
+
+def decode(sentence)
+  words = sentence.split('   ')
+  message = ''
+  words.each { |n| message += "#{decode_word(n)} " }
+message
 end
 
-decode_word("-- -.--")
-
-  
+puts decode("-- -.--   -. .- -- .") #=> MY NAME
+puts decode (" .-   -... --- -..-   ..-. ..- .-.. .-..   --- ..-.   .-. ..- -... .. . ...") #=> A BOX FULL OF RUBIES
